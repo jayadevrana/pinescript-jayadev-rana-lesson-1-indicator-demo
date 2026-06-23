@@ -1,0 +1,30 @@
+//@version=6
+indicator(
+    title = "Jayadev Rana Lesson 1 Indicator Demo",
+    shorttitle = "JR L1 Demo",
+    overlay = true,
+    format = format.price,
+    precision = 2,
+    scale = scale.right,
+    max_bars_back = 200,
+    timeframe = "",
+    timeframe_gaps = true,
+    explicit_plot_zorder = true,
+    max_lines_count = 50,
+    max_labels_count = 50,
+    max_boxes_count = 50,
+    calc_bars_count = 300,
+    max_polylines_count = 50,
+    dynamic_requests = true,
+    behind_chart = false
+)
+
+int fastLength = input.int(9, "Fast EMA Length", minval = 1)
+int slowLength = input.int(21, "Slow EMA Length", minval = 1)
+
+float fastEma = ta.ema(close, fastLength)
+float slowEma = ta.ema(close, slowLength)
+
+fastPlot = plot(fastEma, "Fast EMA", color = color.orange, linewidth = 2)
+slowPlot = plot(slowEma, "Slow EMA", color = color.blue, linewidth = 2)
+fill(fastPlot, slowPlot, color = color.new(color.purple, 85))
